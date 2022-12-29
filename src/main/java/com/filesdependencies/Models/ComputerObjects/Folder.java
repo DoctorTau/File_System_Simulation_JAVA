@@ -1,6 +1,7 @@
 package com.filesdependencies.Models.ComputerObjects;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Folder extends FileSystemObject {
     private ArrayList<FileSystemObject> files = new ArrayList<FileSystemObject>();
@@ -28,5 +29,20 @@ public class Folder extends FileSystemObject {
             }
         }
         return null;
+    }
+
+    public FileSystemObject getFileByFullName(String fullName) {
+        ArrayList<String> pathParts = new ArrayList<String>(Arrays.asList(fullName.split("\\\\")));
+        Folder root = getRootAsFolder();
+        for (String string : pathParts) {
+            FileSystemObject file = root.getFile(string);
+            if (file == null) {
+                return null;
+            }
+            if (file instanceof Folder) {
+                root = (Folder) file;
+            }
+        }
+        return root;
     }
 }
