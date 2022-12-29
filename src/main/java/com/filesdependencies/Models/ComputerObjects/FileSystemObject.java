@@ -1,10 +1,10 @@
-package com.filesdependencies.Models.Files;
+package com.filesdependencies.Models.ComputerObjects;
 
-public abstract class File {
-    private String name;
-    private File parent = null;
+public abstract class FileSystemObject {
+    protected String name;
+    protected FileSystemObject parent = null;
 
-    public File(String name, File parent) {
+    public FileSystemObject(String name, FileSystemObject parent) {
         this.name = name;
         this.parent = parent;
     }
@@ -13,7 +13,7 @@ public abstract class File {
         return name;
     }
 
-    public File getParent() {
+    public FileSystemObject getParent() {
         return parent;
     }
 
