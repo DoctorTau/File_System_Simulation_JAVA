@@ -70,4 +70,13 @@ public abstract class FileSystemObject {
         }
         return (Folder) root;
     }
+
+    public static void printTree(FileSystemObject root, String prefix) {
+        System.out.println(prefix + root.getName());
+        if (root instanceof Folder) {
+            for (FileSystemObject file : ((Folder) root).getFiles()) {
+                printTree(file, prefix + "  ");
+            }
+        }
+    }
 }

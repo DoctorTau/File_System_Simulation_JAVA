@@ -2,6 +2,8 @@ package com.filesdependencies.Models.Interface.ConsoleInterface;
 
 import java.util.Scanner;
 
+import com.filesdependencies.Models.ComputerObjects.FileSystemObject;
+import com.filesdependencies.Models.ComputerObjects.Folder;
 import com.filesdependencies.Models.Interface.IOutput;
 
 public class ConsoleOutput implements IOutput {
@@ -39,5 +41,11 @@ public class ConsoleOutput implements IOutput {
         // Clear the console
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    @Override
+    public void printTree(Folder root) {
+        // Print the tree
+        FileSystemObject.printTree(root, "");
     }
 }

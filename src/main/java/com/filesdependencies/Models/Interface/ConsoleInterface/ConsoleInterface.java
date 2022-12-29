@@ -26,6 +26,9 @@ public class ConsoleInterface extends FileSystemInterface {
                 case "clear":
                     ((ConsoleOutput) output).clearConsole();
                     break;
+                case "print":
+                    output.printTree(root);
+                    break;
                 default:
                     output.printError("Command not found");
                     break;
