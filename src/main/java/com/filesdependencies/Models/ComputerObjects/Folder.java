@@ -34,6 +34,7 @@ public class Folder extends FileSystemObject {
     public FileSystemObject getFileByFullName(String fullName) {
         ArrayList<String> pathParts = new ArrayList<String>(Arrays.asList(fullName.split("\\\\")));
         Folder root = getRootAsFolder();
+        FileSystemObject result = null;
         for (String string : pathParts) {
             FileSystemObject file = root.getFile(string);
             if (file == null) {
@@ -41,8 +42,29 @@ public class Folder extends FileSystemObject {
             }
             if (file instanceof Folder) {
                 root = (Folder) file;
+            } else if (file instanceof File) {
+                result = (File) file;
             }
         }
-        return root;
+        return result;
+    }
+
+    public void addFile(String filepath) {
+        ArrayList<String> pathParts = new ArrayList<String>(Arrays.asList(filepath.split("\\\\")));
+        Folder root = getRootAsFolder();
+        for (int i = 0; i < pathParts.size(); i++) {
+            String string = pathParts.get(i);
+            FileSystemObject file = root.getFile(string);
+            if (file == null) {
+                if (i == pathParts.size() - 1) {
+                    new File(string, root);
+                } else {
+                    root = new Folder(string, root);
+                }
+            }
+            if (file instanceof Folder) {
+                root = (Folder) file;
+            }
+        }
     }
 }

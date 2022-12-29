@@ -10,4 +10,6 @@ public interface IOutput {
     void printSuccess(String message);
 
     void printTree(Folder root);
+
+    void printFiles(Folder folder);
 }

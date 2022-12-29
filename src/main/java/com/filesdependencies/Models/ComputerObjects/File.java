@@ -20,6 +20,10 @@ public class File extends FileSystemObject {
         findReferences();
     }
 
+    public ArrayList<FileSystemObject> getDependencies() {
+        return children;
+    }
+
     private void findReferences() {
         // TODO: find references
     }

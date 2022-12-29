@@ -4,4 +4,6 @@ public interface IInput {
     String getCommand();
 
     String getFilepath();
+
+    String getText();
 }

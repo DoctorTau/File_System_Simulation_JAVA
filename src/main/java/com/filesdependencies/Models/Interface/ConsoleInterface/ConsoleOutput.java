@@ -46,6 +46,11 @@ public class ConsoleOutput implements IOutput {
     @Override
     public void printTree(Folder root) {
         // Print the tree
-        FileSystemObject.printTree(root, "");
+        System.out.println(FileSystemObject.getTree(root, ""));
+    }
+
+    @Override
+    public void printFiles(Folder folder) {
+        System.out.println(FileSystemObject.getFilesContent(folder));
     }
 }

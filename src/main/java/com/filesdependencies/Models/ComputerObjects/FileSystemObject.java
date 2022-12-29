@@ -71,12 +71,33 @@ public abstract class FileSystemObject {
         return (Folder) root;
     }
 
-    public static void printTree(FileSystemObject root, String prefix) {
-        System.out.println(prefix + root.getName());
+    public static String getTree(FileSystemObject root, String prefix) {
+        String result = prefix + root.getName() + "\n";
         if (root instanceof Folder) {
             for (FileSystemObject file : ((Folder) root).getFiles()) {
-                printTree(file, prefix + "  ");
+                result += getTree(file, prefix + "  ");
             }
         }
+        return result;
+    }
+
+    public static String getFilesContent(FileSystemObject fileSystemObject) {
+        String result = "";
+        if (fileSystemObject instanceof File) {
+            File file = (File) fileSystemObject;
+            for (FileSystemObject dependency : file.getDependencies()) {
+                result += '\n' + getFilesContent(dependency);
+            }
+            result += file.getContent();
+            return result;
+        }
+        if (fileSystemObject instanceof Folder) {
+            for (FileSystemObject file : ((Folder) fileSystemObject).getFiles()) {
+                if (!"".equals(result))
+                    result += '\n';
+                result += getFilesContent(file);
+            }
+        }
+        return result;
     }
 }
