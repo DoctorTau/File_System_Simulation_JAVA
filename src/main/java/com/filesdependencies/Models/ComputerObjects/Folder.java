@@ -2,6 +2,9 @@ package com.filesdependencies.Models.ComputerObjects;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+
+import com.filesdependencies.Models.Pair;
 
 public class Folder extends FileSystemObject {
     private ArrayList<FileSystemObject> files = new ArrayList<FileSystemObject>();
@@ -101,5 +104,30 @@ public class Folder extends FileSystemObject {
                 root = (Folder) file;
             }
         }
+    }
+
+    public LinkedList<ArrayList<File>> getFileChains() {
+        LinkedList<ArrayList<File>> result = new LinkedList<ArrayList<File>>();
+        ArrayList<File> allFiles = getAllFiles(this), usedFile = new ArrayList<>();
+        for (File file : allFiles) {
+            if (!usedFile.contains(file)) {
+                ArrayList<File> chain = new ArrayList<>();
+                addFileToChain(file, chain);
+                usedFile.addAll(chain);
+                result.add(chain);
+            }
+        }
+
+        return result;
+    }
+
+    private void addFileToChain(File file, ArrayList<File> chain) {
+        if (chain.contains(file)) {
+            throw new RuntimeException("There is a cycle in the file system. File: " + file.getFullName());
+        }
+        for (File dependent : file.getDependencies()) {
+            addFileToChain(dependent, chain);
+        }
+        chain.add(file);
     }
 }

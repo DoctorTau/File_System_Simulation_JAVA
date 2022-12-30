@@ -1,5 +1,8 @@
 package com.filesdependencies.Models.ComputerObjects;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public abstract class FileSystemObject {
     /**
      * Get root folder of file system object.
@@ -26,10 +29,14 @@ public abstract class FileSystemObject {
      */
     public static String getFilesContent(FileSystemObject fileSystemObject) {
         String result = "";
+        ArrayList<File> addedFiles = new ArrayList<File>();
         if (fileSystemObject instanceof File) {
             File file = (File) fileSystemObject;
             for (FileSystemObject dependency : file.getDependencies()) {
-                result += '\n' + getFilesContent(dependency);
+                if (!addedFiles.contains(dependency)) {
+                    result += '\n' + getFilesContent(dependency);
+                    addedFiles.add((File) dependency);
+                }
             }
             result += file.getContent();
             return result;
@@ -42,6 +49,29 @@ public abstract class FileSystemObject {
             }
         }
         return result;
+    }
+
+    public static ArrayList<File> getAllFiles(Folder folder) {
+        ArrayList<File> files = new ArrayList<File>();
+        for (FileSystemObject fileSystemObject : folder.getFiles()) {
+            if (fileSystemObject instanceof File) {
+                files.add((File) fileSystemObject);
+            } else {
+                getAllFiles(folder, files);
+            }
+        }
+        return files;
+    }
+
+    private static ArrayList<File> getAllFiles(Folder folder, ArrayList<File> files) {
+        for (FileSystemObject file : folder.getFiles()) {
+            if (file instanceof File) {
+                files.add((File) file);
+            } else {
+                getAllFiles((Folder) file, files);
+            }
+        }
+        return files;
     }
 
     protected String name;
@@ -113,4 +143,5 @@ public abstract class FileSystemObject {
             return parent.findRoot();
         }
     }
+
 }
