@@ -1,23 +1,27 @@
 package com.filesdependencies.Models.Interface.ConsoleInterface;
 
-import java.util.Scanner;
-
 import com.filesdependencies.Models.ComputerObjects.FileSystemObject;
 import com.filesdependencies.Models.ComputerObjects.Folder;
 import com.filesdependencies.Models.Interface.IOutput;
 
 public class ConsoleOutput implements IOutput {
-    protected Scanner scanner;
 
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.filesdependencies.Models.Interface.IOutput#print(java.lang.String)
+     */
     @Override
     public void print(String message) {
         System.out.println(message);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.filesdependencies.Models.Interface.IOutput#printError(java.lang.String)
+     */
     @Override
     public void printError(String message) {
         // Set the color to red and print the message, then reset the color
@@ -27,6 +31,12 @@ public class ConsoleOutput implements IOutput {
         System.out.flush();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.filesdependencies.Models.Interface.IOutput#printSuccess(java.lang.String)
+     */
     @Override
     public void printSuccess(String message) {
         // Set the color to green and print the message, then reset the color
@@ -37,18 +47,33 @@ public class ConsoleOutput implements IOutput {
 
     }
 
+    /**
+     * Clears the console.
+     */
     public void clearConsole() {
         // Clear the console
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.filesdependencies.Models.Interface.IOutput#printTree(com.
+     * filesdependencies.Models.ComputerObjects.Folder)
+     */
     @Override
     public void printTree(Folder root) {
         // Print the tree
         System.out.println(FileSystemObject.getTree(root, ""));
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.filesdependencies.Models.Interface.IOutput#printFiles(com.
+     * filesdependencies.Models.ComputerObjects.Folder)
+     */
     @Override
     public void printFiles(Folder folder) {
         System.out.println(FileSystemObject.getFilesContent(folder));

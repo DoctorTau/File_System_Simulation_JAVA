@@ -6,22 +6,47 @@ import java.util.Arrays;
 public class Folder extends FileSystemObject {
     private ArrayList<FileSystemObject> files = new ArrayList<FileSystemObject>();
 
+    /**
+     * Constructor for the root folder.
+     * 
+     * @param name   name of the folder.
+     * @param parent parent of the folder.
+     */
     public Folder(String name, FileSystemObject parent) {
         super(name, parent);
     }
 
+    /**
+     * @return the files that are in the folder.
+     */
     public ArrayList<FileSystemObject> getFiles() {
         return files;
     }
 
+    /**
+     * Adds a file to the folder.
+     * 
+     * @param file to be added to the folder.
+     */
     public void addFile(FileSystemObject file) {
         files.add(file);
     }
 
+    /**
+     * Removes a file from the folder.
+     * 
+     * @param file to be removed from the folder.
+     */
     public void removeFile(FileSystemObject file) {
         files.remove(file);
     }
 
+    /**
+     * Gets the root folder of the file system.
+     * 
+     * @param name name of the file.
+     * @return file with the name, null if not found.
+     */
     public FileSystemObject getFile(String name) {
         for (FileSystemObject file : files) {
             if (file.getName().equals(name)) {
@@ -31,6 +56,10 @@ public class Folder extends FileSystemObject {
         return null;
     }
 
+    /**
+     * @param fullName
+     * @return
+     */
     public FileSystemObject getFileByFullName(String fullName) {
         ArrayList<String> pathParts = new ArrayList<String>(Arrays.asList(fullName.split("\\\\")));
         Folder root = getRootAsFolder();
@@ -49,6 +78,12 @@ public class Folder extends FileSystemObject {
         return result;
     }
 
+    /**
+     * Adds a file by the full filepath
+     * Creates folders if they don't exist.
+     * 
+     * @param filepath full path of the file.
+     */
     public void addFile(String filepath) {
         ArrayList<String> pathParts = new ArrayList<String>(Arrays.asList(filepath.split("\\\\")));
         Folder root = getRootAsFolder();
