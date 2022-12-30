@@ -24,11 +24,11 @@ public class FolderTest {
         Folder folder10 = new Folder("folder10", folder4);
         Folder folder11 = new Folder("folder11", folder5);
         Folder folder12 = new Folder("folder12", folder5);
-        Folder folder13 = new Folder("folder13", folder6);
-        Folder folder14 = new Folder("folder14", folder6);
-        Folder folder15 = new Folder("folder15", folder7);
-        Folder folder16 = new Folder("folder16", folder7);
-        Folder folder17 = new Folder("folder17", folder8);
+        new Folder("folder13", folder6);
+        new Folder("folder14", folder6);
+        new Folder("folder15", folder7);
+        new Folder("folder16", folder7);
+        new Folder("folder17", folder8);
 
         // check if folders are created correctly
         assertEquals(2, root.getFiles().size());
@@ -56,13 +56,13 @@ public class FolderTest {
         Folder folder5 = new Folder("folder5", folder2);
         Folder folder6 = new Folder("folder6", folder2);
         Folder folder7 = new Folder("folder7", folder3);
-        File file1 = new File("file1", folder4);
-        File file2 = new File("file2", folder4);
-        File file3 = new File("file3", folder5);
-        File file4 = new File("file4", folder5);
-        File file5 = new File("file5", folder6);
-        File file6 = new File("file6", folder6);
-        File file7 = new File("file7", folder7);
+        new File("file1", folder4);
+        new File("file2", folder4);
+        new File("file3", folder5);
+        new File("file4", folder5);
+        new File("file5", folder6);
+        new File("file6", folder6);
+        new File("file7", folder7);
 
         // check if folders and files are created correctly
         assertEquals(2, root.getFiles().size());

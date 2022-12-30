@@ -15,11 +15,11 @@ public class OutputTest {
         Folder folder1 = new Folder("folder1", root);
         Folder folder2 = new Folder("folder2", root);
         Folder folder3 = new Folder("folder3", folder1);
-        File file1 = new File("file1", folder1);
-        File file2 = new File("file2", folder2);
-        File file3 = new File("file3", folder3);
-        File file4 = new File("file4", folder3);
-        File file5 = new File("file5", folder3);
+        new File("file1", folder1);
+        new File("file2", folder2);
+        new File("file3", folder3);
+        new File("file4", folder3);
+        new File("file5", folder3);
         String expected = "root\n" +
                 "  folder1\n" +
                 "    folder3\n" +
