@@ -18,8 +18,11 @@ public class ConsoleInterface extends FileSystemInterface {
         ((ConsoleInput) input).setScanner(scanner);
     }
 
-    /* (non-Javadoc)
-     * @see com.filesdependencies.Models.Interface.FileSystemInterface#handleCommands()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.filesdependencies.Models.Interface.FileSystemInterface#handleCommands()
      */
     @Override
     public void handleCommands() {
@@ -57,7 +60,10 @@ public class ConsoleInterface extends FileSystemInterface {
                     case "print":
                         output.printTree(root);
                         break;
-                    case "printf":
+                    case "printFC":
+                        output.printFileChains(root);
+                        break;
+                    case "printC":
                         output.printFiles(root);
                         break;
                     default:

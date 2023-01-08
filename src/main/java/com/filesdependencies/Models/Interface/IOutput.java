@@ -33,4 +33,11 @@ public interface IOutput {
      * @param folder to print the files content.
      */
     void printFiles(Folder folder);
+
+    /**
+     * Prints the file chains.
+     * 
+     * @param root folder of the file system.
+     */
+    void printFileChains(Folder root);
 }

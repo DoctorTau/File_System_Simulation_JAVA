@@ -1,5 +1,9 @@
 package com.filesdependencies.Models.Interface.ConsoleInterface;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import com.filesdependencies.Models.ComputerObjects.File;
 import com.filesdependencies.Models.ComputerObjects.FileSystemObject;
 import com.filesdependencies.Models.ComputerObjects.Folder;
 import com.filesdependencies.Models.Interface.IOutput;
@@ -77,5 +81,19 @@ public class ConsoleOutput implements IOutput {
     @Override
     public void printFiles(Folder folder) {
         System.out.println(FileSystemObject.getFilesContent(folder));
+    }
+
+    @Override
+    public void printFileChains(Folder root) {
+        LinkedList<ArrayList<File>> chains = root.getFileChains();
+        for (ArrayList<File> chain : chains) {
+            for (int i = chain.size() - 1; i >= 0; i--) {
+                System.out.print(chain.get(i).getName());
+                if (i != 0) {
+                    System.out.print(" -> ");
+                }
+            }
+            System.out.println();
+        }
     }
 }

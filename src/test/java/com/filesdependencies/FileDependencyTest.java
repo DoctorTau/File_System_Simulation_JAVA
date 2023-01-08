@@ -49,8 +49,8 @@ public class FileDependencyTest {
         Folder root = new Folder("root", null);
         File file = new File("file1", root);
         File file2 = new File("file2", root);
-        file.setContent("Hello word! require 'file2'\n");
-        file2.setContent("Goodbye word!\n");
+        file.setContent("Hello word! require 'file2'");
+        file2.setContent("Goodbye word!");
 
         String expected = "Goodbye word!\nHello word! require 'file2'\n";
         String actual = FileSystemObject.getFilesContent(root);
@@ -65,9 +65,9 @@ public class FileDependencyTest {
         File file = new File("file1", root);
         File file2 = new File("file2", root);
         File file3 = new File("file3", folder1);
-        file.setContent("Hello word! require 'file2'\n");
-        file2.setContent("require 'folder1\\file3' Goodbye word!\n");
-        file3.setContent("kekis\n");
+        file.setContent("Hello word! require 'file2'");
+        file2.setContent("require 'folder1\\file3' Goodbye word!");
+        file3.setContent("kekis");
 
         String expected = "kekis\nrequire 'folder1\\file3' Goodbye word!\nHello word! require 'file2'\n";
         String actual = FileSystemObject.getFilesContent(root);
@@ -84,7 +84,7 @@ public class FileDependencyTest {
         file2.setContent("require 'file1' Goodbye word!\n");
         try {
             FileSystemObject.getFilesContent(root);
-            fail("Cycle not detected.");
+            fail("Cycle not detected");
         } catch (RuntimeException expectedException) {
             assertTrue(expectedException.getMessage().contains("There is a cycle in the file system."));
         }
@@ -103,7 +103,7 @@ public class FileDependencyTest {
         file4.setContent("require 'file1' Goodbye word!\n");
         try {
             FileSystemObject.getFilesContent(root);
-            fail("Cycle not detected.");
+            fail("My method didn't throw when I expected it to");
         } catch (RuntimeException expectedException) {
             assertTrue(expectedException.getMessage().contains("There is a cycle in the file system."));
         }
