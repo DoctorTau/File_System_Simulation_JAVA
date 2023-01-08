@@ -87,6 +87,9 @@ public class File extends FileSystemObject {
                         if (file != null && file instanceof File) {
                             children.add((File) file);
                         }
+                        else {
+                            throw new RuntimeException("File " + word + " does not exist.");
+                        }
                     }
                 }
             }
