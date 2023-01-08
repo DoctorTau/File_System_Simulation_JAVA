@@ -29,23 +29,16 @@ public abstract class FileSystemObject {
      */
     public static String getFilesContent(FileSystemObject fileSystemObject) {
         String result = "";
-        ArrayList<File> addedFiles = new ArrayList<File>();
-        if (fileSystemObject instanceof File) {
-            File file = (File) fileSystemObject;
-            for (FileSystemObject dependency : file.getDependencies()) {
-                if (!addedFiles.contains(dependency)) {
-                    result += '\n' + getFilesContent(dependency);
-                    addedFiles.add((File) dependency);
-                }
-            }
-            result += file.getContent();
-            return result;
-        }
         if (fileSystemObject instanceof Folder) {
-            for (FileSystemObject file : ((Folder) fileSystemObject).getFiles()) {
-                if (!"".equals(result))
-                    result += '\n';
-                result += getFilesContent(file);
+            Folder folder = (Folder) fileSystemObject;
+            LinkedList<ArrayList<File>> fileChains = folder.getFileChains();
+            for (ArrayList<File> chain : fileChains) {
+                for (File file : chain) {
+                    result += file.getContent();
+                }
+                if (chain != fileChains.getLast()) {
+                    result += "\n------\n";
+                }
             }
         }
         return result;
@@ -55,7 +48,9 @@ public abstract class FileSystemObject {
         ArrayList<File> files = new ArrayList<File>();
         for (FileSystemObject fileSystemObject : folder.getFiles()) {
             if (fileSystemObject instanceof File) {
-                files.add((File) fileSystemObject);
+                if (!files.contains(fileSystemObject)) {
+                    files.add((File) fileSystemObject);
+                }
             } else {
                 getAllFiles(folder, files);
             }

@@ -56,4 +56,21 @@ public class FileDependencyTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testContentWithTwoDependency() {
+        Folder root = new Folder("root", null);
+        Folder folder1 = new Folder("folder1", root);
+        File file = new File("file1", root);
+        File file2 = new File("file2", root);
+        File file3 = new File("file3", folder1);
+        file.setContent("Hello word! require 'file2'\n");
+        file2.setContent("require 'folder1\\file3' Goodbye word!\n");
+        file3.setContent("kekis\n");
+
+        String expected = "kekis\nrequire 'folder1\\file3' Goodbye word!\nHello word! require 'file2'\n";
+        String actual = FileSystemObject.getFilesContent(root);
+
+        assertEquals(expected, actual);
+    }
 }

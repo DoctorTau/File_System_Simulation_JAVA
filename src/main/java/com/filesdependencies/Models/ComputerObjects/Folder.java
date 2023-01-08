@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import com.filesdependencies.Models.Pair;
-
 public class Folder extends FileSystemObject {
     private ArrayList<FileSystemObject> files = new ArrayList<FileSystemObject>();
 
@@ -110,14 +108,17 @@ public class Folder extends FileSystemObject {
         LinkedList<ArrayList<File>> result = new LinkedList<ArrayList<File>>();
         ArrayList<File> allFiles = getAllFiles(this), usedFile = new ArrayList<>();
         for (File file : allFiles) {
-            if (!usedFile.contains(file)) {
+            file.updateReferences();
+        }
+        for (File file : allFiles) {
+            File fileToAdd = file.getPrime(allFiles);
+            if (!usedFile.contains(fileToAdd)) {
                 ArrayList<File> chain = new ArrayList<>();
-                addFileToChain(file, chain);
+                addFileToChain(fileToAdd, chain);
                 usedFile.addAll(chain);
                 result.add(chain);
             }
         }
-
         return result;
     }
 

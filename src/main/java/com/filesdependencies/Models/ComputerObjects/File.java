@@ -30,6 +30,11 @@ public class File extends FileSystemObject {
     public void setContent(String content) {
         content.trim();
         this.content = content;
+        findReferences();
+    }
+
+    public void updateReferences() {
+        findReferences();
     }
 
     /**
@@ -56,6 +61,7 @@ public class File extends FileSystemObject {
      * Finds the files in the content that are required by this file.
      */
     private void findReferences() {
+        this.children.clear();
         // Go through the content word by word and find the word "require"
         try {
             // Get a list of words from the file content
@@ -88,5 +94,16 @@ public class File extends FileSystemObject {
         } catch (Exception e) {
             throw new RuntimeException("Error while parsing file " + getFullName());
         }
+    }
+
+    public File getPrime(ArrayList<File> files) {
+        for (File file : files) {
+            if (file != this) {
+                if (file.getDependencies().contains(this)) {
+                    return file.getPrime(files);
+                }
+            }
+        }
+        return this;
     }
 }
