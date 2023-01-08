@@ -104,6 +104,11 @@ public class Folder extends FileSystemObject {
         }
     }
 
+    /**
+     * Creates the chains of files which require each other.
+     * 
+     * @return list of chains of files.
+     */
     public LinkedList<ArrayList<File>> getFileChains() {
         LinkedList<ArrayList<File>> result = new LinkedList<ArrayList<File>>();
         ArrayList<File> allFiles = getAllFiles(this), usedFile = new ArrayList<>();

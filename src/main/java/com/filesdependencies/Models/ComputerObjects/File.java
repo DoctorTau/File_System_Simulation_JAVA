@@ -95,6 +95,11 @@ public class File extends FileSystemObject {
         }
     }
 
+    /**
+     * @param files   list of all files.
+     * @param visited list of visited files.
+     * @return the prime file that requires all files in a chain.
+     */
     public File getPrime(ArrayList<File> files, ArrayList<File> visited) {
         if (visited.contains(this)) {
             throw new RuntimeException("There is a cycle in the file system. File: " + this.getFullName());

@@ -34,7 +34,7 @@ public abstract class FileSystemObject {
             LinkedList<ArrayList<File>> fileChains = folder.getFileChains();
             for (ArrayList<File> chain : fileChains) {
                 for (File file : chain) {
-                    result += file.getContent();
+                    result += file.getContent() + "\n";
                 }
                 if (chain != fileChains.getLast()) {
                     result += "\n------\n";
@@ -44,6 +44,10 @@ public abstract class FileSystemObject {
         return result;
     }
 
+    /**
+     * @param folder folder to get the files.
+     * @return files list.
+     */
     public static ArrayList<File> getAllFiles(Folder folder) {
         ArrayList<File> files = new ArrayList<File>();
         for (FileSystemObject fileSystemObject : folder.getFiles()) {
@@ -58,6 +62,13 @@ public abstract class FileSystemObject {
         return files;
     }
 
+    /**
+     * Gets all files in the folder.
+     * 
+     * @param folder folder to get the files.
+     * @param files  files list to add the files.
+     * @return files list.
+     */
     private static ArrayList<File> getAllFiles(Folder folder, ArrayList<File> files) {
         for (FileSystemObject file : folder.getFiles()) {
             if (file instanceof File) {
