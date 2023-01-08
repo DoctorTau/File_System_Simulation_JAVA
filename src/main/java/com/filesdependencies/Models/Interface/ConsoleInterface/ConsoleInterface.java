@@ -66,6 +66,14 @@ public class ConsoleInterface extends FileSystemInterface {
                     case "printC":
                         output.printFiles(root);
                         break;
+                    case "remove":
+                        // 1. Get the file path from user input
+                        String filepathToRemove = input.getFilepath();
+                        // 2. Remove the file from the root directory
+                        root.removeFile(root.getFileByFullName(filepathToRemove));
+                        // 3. Print a success message
+                        output.printSuccess("File removed successfully");
+                        break;
                     default:
                         output.printError("Command not found");
                         break;

@@ -39,7 +39,15 @@ public class Folder extends FileSystemObject {
      * @param file to be removed from the folder.
      */
     public void removeFile(FileSystemObject file) {
-        files.remove(file);
+        if (files.contains(file)) {
+            files.remove(file);
+            return;
+        }
+        for (FileSystemObject fileSystemObject : files) {
+            if (fileSystemObject instanceof Folder) {
+                ((Folder) fileSystemObject).removeFile(file);
+            }
+        }
     }
 
     /**
