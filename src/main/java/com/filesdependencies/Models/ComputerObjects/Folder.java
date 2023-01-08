@@ -111,7 +111,7 @@ public class Folder extends FileSystemObject {
             file.updateReferences();
         }
         for (File file : allFiles) {
-            File fileToAdd = file.getPrime(allFiles);
+            File fileToAdd = file.getPrime(allFiles, new ArrayList<File>());
             if (!usedFile.contains(fileToAdd)) {
                 ArrayList<File> chain = new ArrayList<>();
                 addFileToChain(fileToAdd, chain);

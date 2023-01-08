@@ -30,7 +30,6 @@ public class File extends FileSystemObject {
     public void setContent(String content) {
         content.trim();
         this.content = content;
-        findReferences();
     }
 
     public void updateReferences() {
@@ -96,11 +95,15 @@ public class File extends FileSystemObject {
         }
     }
 
-    public File getPrime(ArrayList<File> files) {
+    public File getPrime(ArrayList<File> files, ArrayList<File> visited) {
+        if (visited.contains(this)) {
+            throw new RuntimeException("There is a cycle in the file system. File: " + this.getFullName());
+        }
+        visited.add(this);
         for (File file : files) {
             if (file != this) {
                 if (file.getDependencies().contains(this)) {
-                    return file.getPrime(files);
+                    return file.getPrime(files, visited);
                 }
             }
         }
