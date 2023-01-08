@@ -88,12 +88,9 @@ public class ConsoleOutput implements IOutput {
         LinkedList<ArrayList<File>> chains = root.getFileChains();
         for (ArrayList<File> chain : chains) {
             for (int i = chain.size() - 1; i >= 0; i--) {
-                System.out.print(chain.get(i).getName());
-                if (i != 0) {
-                    System.out.print(" -> ");
-                }
+                System.out.println(chain.get(i).getFullName());
             }
-            System.out.println();
+            System.out.println("-----------------");
         }
     }
 }
